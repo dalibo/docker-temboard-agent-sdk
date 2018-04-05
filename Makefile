@@ -4,3 +4,6 @@ build: centos6 centos7
 
 centos%: Dockerfile.centos%
 	docker build -t $(NAME):centos$* -f Dockerfile.centos$* .
+
+push%:
+	docker push $(NAME):centos$*
