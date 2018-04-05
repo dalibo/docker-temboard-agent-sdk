@@ -1,9 +1,6 @@
 FROM centos:7
 
-ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini /usr/local/sbin/tini
-
 RUN set -ex; \
-    chmod +x /usr/local/sbin/tini; \
     rpm --import \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-10 \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-94 \
@@ -18,15 +15,21 @@ RUN set -ex; \
         https://download.postgresql.org/pub/repos/yum/testing/10/redhat/rhel-7-x86_64/pgdg-centos10-10-1.noarch.rpm \
     ; \
     yum -q -y install \
+        postgresql94-server postgresql94-contrib \
+        postgresql95-server postgresql95-contrib \
+        postgresql96-server postgresql96-contrib \
+        postgresql10-server postgresql10-contrib \
+    ; \
+    yum clean all ; \
+    :
+
+RUN set -ex; \
+    yum -q -y install \
         git \
         make \
         net-tools \
         openssl \
         procps-ng \
-        postgresql94-server postgresql94-contrib \
-        postgresql95-server postgresql95-contrib \
-        postgresql96-server postgresql96-contrib \
-        postgresql10-server postgresql10-contrib \
         python2-pip \
         rsync \
         sudo \
@@ -34,7 +37,10 @@ RUN set -ex; \
     yum clean all ; \
     :
 
+ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini /usr/local/sbin/tini
+
 RUN set -ex; \
+    chmod +x /usr/local/sbin/tini; \
     pip install "pytest"; \
     rm -rf ~/.cache/; \
     useradd --system testuser; \
