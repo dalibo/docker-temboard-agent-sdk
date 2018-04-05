@@ -19,7 +19,9 @@ RUN set -ex; \
     ; \
     yum -q -y install \
         http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm \
+        make \
         net-tools \
+        openssl \
         procps-ng \
         postgresql94-server postgresql94-contrib \
         postgresql95-server postgresql95-contrib \
@@ -28,6 +30,7 @@ RUN set -ex; \
         python-argparse \
         python-logutils \
         python-pip \
+        rsync \
         sudo \
     ; \
     yum clean all ; \

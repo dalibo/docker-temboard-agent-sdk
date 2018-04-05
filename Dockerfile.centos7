@@ -19,13 +19,16 @@ RUN set -ex; \
     ; \
     yum -q -y install \
         git \
+        make \
         net-tools \
+        openssl \
         procps-ng \
         postgresql94-server postgresql94-contrib \
         postgresql95-server postgresql95-contrib \
         postgresql96-server postgresql96-contrib \
         postgresql10-server postgresql10-contrib \
         python2-pip \
+        rsync \
         sudo \
     ; \
     yum clean all ; \
