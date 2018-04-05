@@ -26,10 +26,12 @@ RUN set -ex; \
 RUN set -ex; \
     yum -q -y install \
         git \
+        less \
         make \
         net-tools \
         openssl \
         procps-ng \
+        psmisc \
         python2-pip \
         rsync \
         sudo \
