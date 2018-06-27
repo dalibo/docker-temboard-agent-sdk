@@ -1,9 +1,9 @@
 NAME=dalibo/temboard-agent-sdk
 
-build: centos6 centos7
+build: centos6 centos7 stretch
 
-centos%: Dockerfile.centos%
-	docker build -t $(NAME):centos$* -f Dockerfile.centos$* .
+%: Dockerfile.%
+	docker build -t $(NAME):$* -f Dockerfile.$* .
 
-push%:
-	docker push $(NAME):centos$*
+push-%:
+	docker push $(NAME):*

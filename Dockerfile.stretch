@@ -1,0 +1,28 @@
+FROM buildpack-deps:stretch
+
+RUN set -ex; \
+    apt-get update -y; \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        python2.7 \
+        python-pip \
+        ruby \
+        ruby-dev \
+        rubygems \
+    ; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+    :
+
+ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini /usr/local/sbin/tini
+
+RUN set -ex; \
+    chmod +x /usr/local/sbin/tini; \
+    pip --no-cache-dir install --upgrade pip; \
+    hash -r pip; \
+    pip --no-cache-dir install --upgrade pep440deb setuptools; \
+    gem install --no-ri --no-rdoc fpm; \
+    gem cleanup; \
+    :
+
+ENTRYPOINT ["/usr/local/sbin/tini", "-gw", "--"]
