@@ -39,7 +39,7 @@ RUN set -ex; \
     yum clean all ; \
     :
 
-ADD https://github.com/krallin/tini/releases/download/v0.17.0/tini /usr/local/sbin/tini
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
 
 RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
