@@ -47,7 +47,7 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sb
 
 RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
-    pip install "pytest<3.3"; \
+    pip install "pytest<3.3" "py<1.5"; \
     rm -rf ~/.cache/; \
     useradd --system testuser; \
     :
