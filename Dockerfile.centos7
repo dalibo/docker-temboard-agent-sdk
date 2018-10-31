@@ -15,10 +15,10 @@ RUN set -ex; \
         https://download.postgresql.org/pub/repos/yum/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-3.noarch.rpm \
     ; \
     yum -q -y install \
-        postgresql94-server postgresql94-contrib \
-        postgresql95-server postgresql95-contrib \
-        postgresql96-server postgresql96-contrib \
         postgresql10-server postgresql10-contrib \
+        postgresql96-server postgresql96-contrib \
+        postgresql95-server postgresql95-contrib \
+        postgresql94-server postgresql94-contrib \
     ; \
     yum clean all ; \
     :
