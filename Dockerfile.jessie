@@ -4,6 +4,7 @@ RUN set -ex; \
     apt-get update -y; \
     apt-get install -y --no-install-recommends \
         build-essential \
+        lsb-release \
         python2.7 \
         python-pip \
         ruby \
@@ -20,7 +21,7 @@ RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
     pip install pip==9.0.1; hash -r pip; \
     pip2 --no-cache-dir install --upgrade pip; hash -r pip2; \
-    pip2 --no-cache-dir install --upgrade setuptools; \
+    pip2 --no-cache-dir install --upgrade pep440deb setuptools; \
     gem install --no-ri --no-rdoc fpm; \
     gem cleanup; \
     :
