@@ -20,7 +20,7 @@ RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
     pip install https://files.pythonhosted.org/packages/c4/44/e6b8056b6c8f2bfd1445cc9990f478930d8e3459e9dbf5b8e2d2922d64d3/pip-9.0.3.tar.gz; hash -r pip; \
     pip2 --no-cache-dir install --upgrade pip; hash -r pip2; \
-    pip2 --no-cache-dir install --ignore-installed setuptools; \
+    pip2 --no-cache-dir install --ignore-installed pep440deb setuptools; \
     env -u http_proxy gem1.9.1 install --no-ri --no-rdoc fpm; \
     gem1.9.1 cleanup; \
     :
