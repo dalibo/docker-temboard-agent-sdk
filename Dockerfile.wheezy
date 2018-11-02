@@ -4,6 +4,7 @@ RUN set -ex; \
     apt-get update -y; \
     apt-get install -y --no-install-recommends \
         build-essential \
+        lsb-release \
         python2.7 \
         python-pip \
         ruby \
