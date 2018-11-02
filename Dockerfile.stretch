@@ -6,6 +6,8 @@ RUN set -ex; \
         build-essential \
         python2.7 \
         python-pip \
+        python3.5 \
+        python3-pip \
         ruby \
         ruby-dev \
         rubygems \
@@ -18,9 +20,12 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sb
 
 RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
-    pip --no-cache-dir install --upgrade pip; \
-    hash -r pip; \
-    pip --no-cache-dir install --upgrade pep440deb setuptools; \
+    pip2 --no-cache-dir install --upgrade pip; \
+    hash -r pip2; \
+    pip2 --no-cache-dir install --upgrade setuptools; \
+    pip3 --no-cache-dir install --upgrade pip; \
+    hash -r pip3; \
+    pip3 --no-cache-dir install --upgrade pep440deb setuptools; \
     gem install --no-ri --no-rdoc fpm; \
     gem cleanup; \
     :
