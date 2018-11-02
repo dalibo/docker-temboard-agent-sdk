@@ -1,6 +1,6 @@
 NAME=dalibo/temboard-agent-sdk
 
-build: centos6 centos7 stretch
+build: centos6 centos7 stretch jessie
 
 %: Dockerfile.%
 	docker build --build-arg http_proxy -t $(NAME):$* -f Dockerfile.$* .
