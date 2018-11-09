@@ -24,9 +24,13 @@ RUN set -ex; \
     pip2 --no-cache-dir install --upgrade pip; \
     hash -r pip2; \
     pip2 --no-cache-dir install --upgrade setuptools; \
-    pip3 --no-cache-dir install --upgrade pip; \
+    pip3 --no-cache-dir install --upgrade pip setuptools; \
     hash -r pip3; \
-    pip3 --no-cache-dir install --upgrade pep440deb setuptools; \
+    pip3 --no-cache-dir install --upgrade \
+        pep440deb \
+        virtualenv \
+        virtualenv-tools\
+    ; \
     gem install --no-ri --no-rdoc fpm; \
     gem cleanup; \
     :
