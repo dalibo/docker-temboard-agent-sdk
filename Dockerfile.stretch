@@ -1,10 +1,20 @@
 FROM buildpack-deps:stretch
 
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
 RUN set -ex; \
+    chmod +x /usr/local/bin/wait-for-it.sh; \
+    curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ; \
+    echo deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main > /etc/apt/sources.list.d/pgdg.list; \
     apt-get update -y; \
     apt-get install -y --no-install-recommends \
         build-essential \
         lsb-release \
+        postgresql-client-9.3 \
+        postgresql-client-9.4 \
+        postgresql-client-9.5 \
+        postgresql-client-9.6 \
+        postgresql-client-10 \
+        postgresql-client-11 \
         python2.7 \
         python-pip \
         python3.5 \
@@ -12,6 +22,7 @@ RUN set -ex; \
         ruby \
         ruby-dev \
         rubygems \
+        sudo \
     ; \
     apt-get clean; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
