@@ -1,6 +1,8 @@
 FROM buildpack-deps:stretch
 
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
 RUN set -ex; \
+    chmod +x /usr/local/bin/wait-for-it.sh; \
     curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ; \
     echo deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main > /etc/apt/sources.list.d/pgdg.list; \
     apt-get update -y; \
