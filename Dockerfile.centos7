@@ -1,6 +1,8 @@
 FROM centos:7
 
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
 RUN set -ex; \
+    chmod +x /usr/local/bin/wait-for-it.sh; \
     rpm --import \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-11 \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-10 \
