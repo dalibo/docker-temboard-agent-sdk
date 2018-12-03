@@ -1,10 +1,18 @@
 FROM buildpack-deps:stretch
 
 RUN set -ex; \
+    curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ; \
+    echo deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main > /etc/apt/sources.list.d/pgdg.list; \
     apt-get update -y; \
     apt-get install -y --no-install-recommends \
         build-essential \
         lsb-release \
+        postgresql-client-9.3 \
+        postgresql-client-9.4 \
+        postgresql-client-9.5 \
+        postgresql-client-9.6 \
+        postgresql-client-10 \
+        postgresql-client-11 \
         python2.7 \
         python-pip \
         python3.5 \
