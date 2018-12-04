@@ -3,6 +3,7 @@ FROM centos:7
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
 RUN set -ex; \
     chmod +x /usr/local/bin/wait-for-it.sh; \
+    sed -i s/^keepcache=.*/keepcache=1/ /etc/yum.conf; \
     rpm --import \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-11 \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-10 \
@@ -38,10 +39,13 @@ RUN set -ex; \
         procps-ng \
         psmisc \
         python2-pip \
+        rpm-build \
         rsync \
         sudo \
+        yum-utils \
     ; \
     yum clean all ; \
+    yum makecache fast; \
     :
 
 ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
