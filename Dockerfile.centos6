@@ -1,6 +1,7 @@
 FROM centos:6
 
 RUN set -ex; \
+    sed -i s/^keepcache=.*/keepcache=1/ /etc/yum.conf; \
     rpm --import \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-10 \
         https://yum.postgresql.org/RPM-GPG-KEY-PGDG-94 \
@@ -37,10 +38,13 @@ RUN set -ex; \
         python-argparse \
         python-logutils \
         python-pip \
+        rpm-build \
         rsync \
         sudo \
+        yum-utils \
     ; \
     yum clean all ; \
+    yum makecache fast; \
     :
 
 ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
