@@ -39,6 +39,7 @@ RUN set -ex; \
         procps-ng \
         psmisc \
         python2-pip \
+        python-setuptools \
         rpm-build \
         rsync \
         sudo \
