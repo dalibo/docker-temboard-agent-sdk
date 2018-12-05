@@ -39,6 +39,7 @@ RUN set -ex; \
         python-argparse \
         python-logutils \
         python-pip \
+        python-setuptools \
         rpm-build \
         rsync \
         sudo \
