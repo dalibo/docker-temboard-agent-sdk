@@ -1,6 +1,7 @@
 FROM centos:7
 
 ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
 RUN set -ex; \
     chmod +x /usr/local/bin/wait-for-it.sh; \
     sed -i s/^keepcache=.*/keepcache=1/ /etc/yum.conf; \
@@ -48,8 +49,6 @@ RUN set -ex; \
     yum clean all ; \
     yum makecache fast; \
     :
-
-ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
 
 RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
