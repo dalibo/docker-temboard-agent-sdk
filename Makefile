@@ -7,3 +7,6 @@ build: centos6 centos7 stretch jessie wheezy
 
 push-%:
 	docker push $(NAME):$*
+
+test-%:
+	docker run --rm -it $(NAME):$* /bin/bash
