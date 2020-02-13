@@ -42,6 +42,11 @@ RUN set -ex; \
     :
 
 RUN set -ex; \
+    echo /usr/local/lib/python2.7/site-packages >> /usr/lib/python2.7/site-packages/local.pth; \
+    echo /usr/local/lib64/python2.7/site-packages >> /usr/lib/python2.7/site-packages/local.pth; \
+    pip install --ignore-installed --prefix /usr/local pip setuptools ; \
+    yum remove -q -y python2-pip ; \
+    hash -r pip; \
     pip install "pytest"; \
     rm -rf ~/.cache/; \
     useradd --system testuser; \
