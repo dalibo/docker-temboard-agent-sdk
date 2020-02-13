@@ -23,7 +23,7 @@ RUN set -ex; \
     pip2 --no-cache-dir install --upgrade pip setuptools; hash -r pip2; \
     pip2 --no-cache-dir install --upgrade \
         pep440deb \
-        virtualenv \
+        virtualenv<20 \
         virtualenv-tools\
     ; \
     gem install --no-ri --no-rdoc fpm; \
