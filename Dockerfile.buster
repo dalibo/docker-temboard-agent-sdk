@@ -36,6 +36,9 @@ RUN set -ex; \
     pip2 --no-cache-dir install --upgrade pip; \
     hash -r pip2; \
     pip2 --no-cache-dir install --upgrade setuptools; \
+   :
+
+RUN set -ex; \
     pip3 --no-cache-dir install --upgrade pip setuptools; \
     hash -r pip3; \
     pip3 --no-cache-dir install --upgrade \
@@ -43,6 +46,9 @@ RUN set -ex; \
         "virtualenv<20" \
         virtualenv-tools\
     ; \
+    :
+
+RUN set -ex; \
     gem install --no-ri --no-rdoc fpm; \
     gem cleanup; \
     :
