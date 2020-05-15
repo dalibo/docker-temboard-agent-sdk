@@ -1,0 +1,50 @@
+FROM buildpack-deps:buster
+
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
+RUN set -ex; \
+    chmod +x /usr/local/bin/wait-for-it.sh; \
+    curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - ; \
+    echo deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main > /etc/apt/sources.list.d/pgdg.list; \
+    apt-get update -y; \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        lsb-release \
+        postgresql-client-9.3 \
+        postgresql-client-9.4 \
+        postgresql-client-9.5 \
+        postgresql-client-9.6 \
+        postgresql-client-10 \
+        postgresql-client-11 \
+        postgresql-client-12 \
+        python2.7 \
+        python-pip \
+        python3.5 \
+        python3-pip \
+        ruby \
+        ruby-dev \
+        rubygems \
+        sudo \
+    ; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+    :
+
+ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /usr/local/sbin/tini
+
+RUN set -ex; \
+    chmod +x /usr/local/sbin/tini; \
+    pip2 --no-cache-dir install --upgrade pip; \
+    hash -r pip2; \
+    pip2 --no-cache-dir install --upgrade setuptools; \
+    pip3 --no-cache-dir install --upgrade pip setuptools; \
+    hash -r pip3; \
+    pip3 --no-cache-dir install --upgrade \
+        pep440deb \
+        "virtualenv<20" \
+        virtualenv-tools\
+    ; \
+    gem install --no-ri --no-rdoc fpm; \
+    gem cleanup; \
+    :
+
+ENTRYPOINT ["/usr/local/sbin/tini", "-gw", "--"]
