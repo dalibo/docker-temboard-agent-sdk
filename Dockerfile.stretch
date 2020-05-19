@@ -9,12 +9,13 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends \
         build-essential \
         lsb-release \
-        postgresql-client-9.3 \
-        postgresql-client-9.4 \
-        postgresql-client-9.5 \
-        postgresql-client-9.6 \
-        postgresql-client-10 \
-        postgresql-client-11 \
+        postgresql-9.3 postgresql-client-9.3 \
+        postgresql-9.4 postgresql-client-9.4 \
+        postgresql-9.5 postgresql-client-9.5 \
+        postgresql-9.6 postgresql-client-9.6 \
+        postgresql-10 postgresql-client-10 \
+        postgresql-11 postgresql-client-11 \
+        postgresql-12 postgresql-client-12 \
         python2.7 \
         python-pip \
         python3.5 \
@@ -32,9 +33,16 @@ ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sb
 
 RUN set -ex; \
     chmod +x /usr/local/sbin/tini; \
+    useradd --system testuser; \
+    :
+
+RUN set -ex; \
     pip2 --no-cache-dir install --upgrade pip; \
     hash -r pip2; \
-    pip2 --no-cache-dir install --upgrade setuptools; \
+    pip2 --no-cache-dir install --upgrade setuptools wheel; \
+    pip2 --no-cache-dir install --upgrade \
+        pytest \
+    ; \
     :
 
 RUN set -ex; \
