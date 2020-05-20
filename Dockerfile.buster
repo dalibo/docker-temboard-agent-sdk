@@ -24,6 +24,7 @@ RUN set -ex; \
         ruby-dev \
         rubygems \
         sudo \
+        shellcheck \
         bats \
     ; \
     apt-get clean; \
