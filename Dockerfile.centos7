@@ -36,6 +36,7 @@ RUN set -ex; \
         rsync \
         sudo \
         yum-utils \
+        bats \
     ; \
     yum clean all ; \
     yum makecache fast; \
