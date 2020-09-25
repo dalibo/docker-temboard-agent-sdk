@@ -1,0 +1,57 @@
+FROM centos:8
+
+ADD https://github.com/vishnubob/wait-for-it/raw/master/wait-for-it.sh /usr/local/bin/
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /usr/local/sbin/tini
+RUN set -ex; \
+    chmod +x /usr/local/bin/wait-for-it.sh; \
+    chmod +x /usr/local/sbin/tini; \
+    sed -i s/^keepcache=.*/keepcache=1/ /etc/yum.conf; \
+    yum -q -y install \
+        epel-release \
+        https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
+    ; \
+    dnf -qy module disable postgresql; \
+    dnf -y install \
+        postgresql12-server postgresql12-contrib \
+        postgresql11-server postgresql11-contrib \
+        postgresql10-server postgresql10-contrib \
+        postgresql96-server postgresql96-contrib \
+        postgresql95-server postgresql95-contrib \
+    ; \
+    yum clean all ; \
+    :
+
+RUN set -ex; \
+    yum -q -y install \
+        git \
+        less \
+        make \
+        net-tools \
+        openssl \
+        procps-ng \
+        psmisc \
+        python3-pip \
+        python3-setuptools \
+        rpm-build \
+        rsync \
+        sudo \
+        yum-utils \
+    ; \
+    yum clean all ; \
+    yum makecache; \
+    :
+
+RUN set -ex; \
+    ls /usr/local/lib64; \
+    echo /usr/local/lib/python3.6/site-packages >> /usr/lib/python3.6/site-packages/local.pth; \
+    echo /usr/local/lib64/python3.6/site-packages >> /usr/lib/python3.6/site-packages/local.pth; \
+    pip3 install --ignore-installed --prefix /usr/local pip setuptools ; \
+    # FIXME: if python3-pip is removed "pip install" command below cannot work
+    # yum remove -q -y python3-pip ; \
+    hash -r pip; \
+    pip install "pytest"; \
+    rm -rf ~/.cache/; \
+    useradd --system testuser; \
+    :
+
+ENTRYPOINT ["/usr/local/sbin/tini", "-gw", "--"]
